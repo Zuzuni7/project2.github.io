@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Connect 4!</title>
+        <meta charset="utf-8">
+        <style>
+            .row {
+                display: grid;
+                grid-template-columns: 110px 110px 110px 110px 110px 110px 110px;
+                grid-template-rows: 110px;
+                /* border: solid black; */
+            }
+            .row > div > div {
+                border: 5px solid black;
+                font-size: 5em;
+                text-align: center;
+                background-color: rgb(117, 115, 111);
+                width: 90px;
+                height: 90px;
+                border-radius: 100px;
+                white-space: normal;
+            }
+            h1 {
+                font: bold 40px impact;
+                text-align: center;
+            }
+            .column {
+                display: table-cell;
+                background-color: #FFFFFF;
+                width: 45px;
+                height: 45px;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+                margin: 2px;
+            }               
+
+        </style>
+    </head>
+    <body>
+        <h1>CONNECT FOUR: The Game. </h1>
+        <div id="turn">Player 1's Turn</div>
+        <div id="grid">
+            <div class="row" id="row0">
+                <div><div id="column00" onclick="insertPiece(0)"></div></div>
+                <div><div id="column01" onclick="insertPiece(1)"></div></div>
+                <div><div id="column02" onclick="insertPiece(2)"></div></div>
+                <div><div id="column03" onclick="insertPiece(3)"></div></div>
+                <div><div id="column04" onclick="insertPiece(4)"></div></div>
+                <div><div id="column05" onclick="insertPiece(5)"></div></div>
+                <div><div id="column06" onclick="insertPiece(6)"></div></div>
+            </div>
+            <div class="row" id="1">
+                <div><div id="column10" onclick="insertPiece(0)"></div></div>
+                <div><div id="column11" onclick="insertPiece(1)"></div></div>
+                <div><div id="column12" onclick="insertPiece(2)"></div></div>
+                <div><div id="column13" onclick="insertPiece(3)"></div></div>
+                <div><div id="column14" onclick="insertPiece(4)"></div></div>
+                <div><div id="column15" onclick="insertPiece(5)"></div></div>
+                <div><div id="column16" onclick="insertPiece(6)"></div></div>
+            </div>
+            <div class="row" id="2">
+                <div><div id="column20" onclick="insertPiece(0)"></div></div>
+                <div><div id="column21" onclick="insertPiece(1)"></div></div>
+                <div><div id="column22" onclick="insertPiece(2)"></div></div>
+                <div><div id="column23" onclick="insertPiece(3)"></div></div>
+                <div><div id="column24" onclick="insertPiece(4)"></div></div>
+                <div><div id="column25" onclick="insertPiece(5)"></div></div>
+                <div><div id="column26" onclick="insertPiece(6)"></div></div>
+            </div>
+            <div class="row" id="3">
+                <div><div id="column30" onclick="insertPiece(0)"></div></div>
+                <div><div id="column31" onclick="insertPiece(1)"></div></div>
+                <div><div id="column32" onclick="insertPiece(2)"></div></div>
+                <div><div id="column33" onclick="insertPiece(3)"></div></div>
+                <div><div id="column34" onclick="insertPiece(4)"></div></div>
+                <div><div id="column35" onclick="insertPiece(5)"></div></div>
+                <div><div id="column36" onclick="insertPiece(6)"></div></div>
+            </div>
+            <div class="row" id="4">
+                <div><div id="column40" onclick="insertPiece(0)"></div></div>
+                <div><div id="column41" onclick="insertPiece(1)"></div></div>
+                <div><div id="column42" onclick="insertPiece(2)"></div></div>
+                <div><div id="column43" onclick="insertPiece(3)"></div></div>
+                <div><div id="column44" onclick="insertPiece(4)"></div></div>
+                <div><div id="column45" onclick="insertPiece(5)"></div></div>
+                <div><div id="column46" onclick="insertPiece(6)"></div></div>
+            </div>
+            <div class="row" id="5">
+                <div><div id="column50" onclick="insertPiece(0)"></div></div>
+                <div><div id="column51" onclick="insertPiece(1)"></div></div>
+                <div><div id="column52" onclick="insertPiece(2)"></div></div>
+                <div><div id="column53" onclick="insertPiece(3)"></div></div>
+                <div><div id="column54" onclick="insertPiece(4)"></div></div>
+                <div><div id="column55" onclick="insertPiece(5)"></div></div>
+                <div><div id="column56" onclick="insertPiece(6)"></div></div>
+            </div>
+        </div>
+        <p id="err"></p>
+        <p id="win"></p>
+        <script>
+            var player = 1; 
+            //keeps track of current values
+            var grid = [
+            ['0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0', '0', '0']
+            ];  
+            var lineCount = 0;
+            //A function used to add a token (when possible) based on the selected column
+            function insertPiece(col) {
+               var row = 5;
+              
+                do
+                {
+                   gameEnd();
+                   if (player == 1)//
+                   {  
+                        document.getElementById("turn").innerHTML = "Player 1's turn.";
+                        if(grid[row][col] == '0') //coordinate is open
+                        {
+                            grid[row][col] = "1";
+                            player = 2;
+                            break;
+                        }
+                        else if (grid[row][col] != '0')
+                        {
+                            row -= 1;
+                        }
+                    }
+                    if (player == 2)
+                    {
+                        document.getElementById("turn").innerHTML = "Player 2's turn.";
+                        if(grid[row][col] == '0') //coordinate is open
+                        {
+                            grid[row][col] = "2";
+                            player = 1;
+                            break;
+                        }
+                        else if (grid[row][col] != '0')
+                        {
+                            row -= 1;
+                        }
+                    }
+                    //continue;
+                } while (gameEnd() == false); //while on the grid. while game returns false.
+
+                if (row < 0 || col < 0)
+                {
+                    document.getElementById('err').innerHTML = "Column is full!";
+                }
+                else 
+                {
+                    document.getElementById('err').innerHTML = " ";
+                }
+                refreshGrid(row,col);
+                //console.log(grid);
+             
+                function refreshGrid(row,col) {
+                    for (var i = 0; i <= 5 ; i++) {
+                        for (var j = 0; j <= 6; j++) {
+                            if (grid[row][col]==0) { 
+                                document.getElementById("column"+row+col).style.backgroundColor="#FFFFFF";
+                            } else if (grid[row][col]==1) { //1 for yellow
+                                document.getElementById("column"+row+col).style.backgroundColor="#FFFF00";
+                            } else if (grid[row][col]==2) { //1 for yellow
+                                document.getElementById("column"+row+col).style.backgroundColor="#FF0000";
+                            }
+                        }
+                    }  
+                }   
+                function resetGrid() {
+                //Reset all values to 0 in the grid array
+                
+                }
+                function gameEnd() {
+                    for (var i = 5; i >= 0; i--)
+                    {
+                        for(var j = 0; j <= 6; j++)
+                        {
+                            //console.log(grid[i][j]);
+                            if (grid[i][j] == '1') //Player 1 Horiz Game check
+                            {
+                                // console.log("Winner winner chitten dinner!");
+                                if(grid[i][j+1]=='1')
+                                {
+                                    if(grid[i][j+2]=='1')
+                                    {
+                                        if (grid[i][j+3]=='1')
+                                        {
+                                            document.getElementById('win').innerHTML = 'Player 1 Wins!';
+                                            console.log("horizontal win");
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (grid[i][j] == '1') //Player 1 Game check
+                            {
+                                if(grid[i-1][j]== '1')
+                                {
+                                    if(grid[i-2][j]== '1')
+                                    {
+                                        if (grid[i-3][j]== '1')
+                                        {
+                                            console.log("vertical win");
+                                            document.getElementById('win').innerHTML = 'Player 1 Wins!';
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (grid[i][j] == '1') //Player 1 Game check
+                            {
+                                if(grid[i-1][j+1]=='1')
+                                {
+                                    if(grid[i-2][j+2]=='1')
+                                    {
+                                        if (grid[i-3][j+3]=='1')
+                                        {
+                                            console.log("pos diagonal win");
+                                            document.getElementById('win').innerHTML = 'Player 1 Wins!';
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (grid[i][j] == '1') //Player 1 Game check
+                            {
+                                if(grid[i-1][j-1]=='1')
+                                {
+                                    if(grid[i-2][j-2]=='1')
+                                    {
+                                        if (grid[i-3][j-3]=='1')
+                                        {
+                                            console.log("neg diagonal win");
+                                            document.getElementById('win').innerHTML = 'Player 1 Wins!';
+                                            return true;
+                                        }
+                                    }
+                                }
+                            } /*****************PLAYER 2 CHECK****************/
+                            if (grid[i][j] == '2') //Player 1 Horiz Game check
+                            {
+                                console.log()
+                                if(grid[i][j+1]=='2')
+                                {
+                                    if(grid[i][j+2]=='2')
+                                    {
+                                        if (grid[i][j+3]=='2')
+                                        {
+                                            document.getElementById('win').innerHTML = 'Player 2 Wins!';
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (grid[i][j] == '2') //Player 1 Game check
+                            {
+                                if(grid[i-1][j]== '2')
+                                {
+                                    if(grid[i-2][j]=='2')
+                                    {
+                                        if (grid[i-3][j]=='2')
+                                        {
+                                            document.getElementById('win').innerHTML = 'Player 2 Wins!';
+                                            return true;
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                            if (grid[i][j] == '2') //Player 1 Game check
+                            {
+                                if(grid[i-1][j+1]=='2')
+                                {
+                                    if(grid[i-2][j+2]=='2')
+                                    {
+                                        if (grid[i-3][j+3]=='2')
+                                        {
+                                            document.getElementById('win').innerHTML = 'Player 2 Wins!';
+                                            return true;
+                                           
+                                        }
+                                    }
+                                }
+                            }
+                            if (grid[i][j] == '2') //Player 1 Game check
+                            {
+                                if(grid[i-1][j-1]=='2')
+                                {
+                                    if(grid[i-2][j-2]=='2')
+                                    {
+                                        if (grid[i-3][j-3]=='2')
+                                        {
+                                            document.getElementById('win').innerHTML = 'Player 2 Wins!';
+                                            return true;
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+
+                }
+            } 
+        </script>
+    </body>
+</html>
+
+
+
+
+<!-- modules org
+
+
+    -->
