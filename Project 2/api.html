@@ -8,9 +8,15 @@
 </head>
 <body>
     <h1><a href="https://db.ygoprodeck.com/" target="_blank">YG</a> API</h1>
+    <div id="searchbar">
+      <input type="text" id="textEntry" value="" placeholder="What do you seek...">
+      <button id="keywordSearch">Search Card Name</button>
+      <button id="archetypeSearch">Search Card Archetype</button>
+      <button id="typeSearch">Search Card Type</button>
+      <button id="raceSearch">Search Card Race</button>
+    </div>
     <main>
-      <input type="text" id="search" placeholder="What do you seek...">
-      <button>Search</button>
+      <!-- remove hardcoded value later -->
       <div class="listbox">
         <table id="cardList">
           <thead>
@@ -28,25 +34,16 @@
 
         <a id="prev" href="#">&lt;-Prev</a> <a id="next" href="#">Next -&gt;</a>
       </div>
-      <!-- <div id="detailsbox" class="hidden">
-        <dl>
-          <dt>Name:</dt>
-          <dd class="card"></dd>
-          <dt>Model:</dt>
-          <dd class="type"></dd>
-          <dt>Class:</dt>
-          <dd class="class"></dd>
-          <dt>*Movies:</dt>
-          <dd class="movies"></dd>
-        </dl>
-      </div> -->
+      <div>
+        <p id="detailsbox" class="hidden">No Cards Match Your Search Criteria</p>
+      </div>
     </main>
     <script src="fetch.js" type="module">
-      function searchCards() {
-      const searchCard = document.getElementById("search");
-      //console.log(searchCard);
-      //showCards('archetype=' +searchCard);
-      }
+      // function searchCards() {
+      // const searchCard = document.getElementById("search");
+      // //console.log(searchCard);
+      // //showCards('archetype=' +searchCard);
+      // }
     </script>
 </body>
 </html>
