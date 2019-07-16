@@ -1,0 +1,71 @@
+    
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: burlywood;
+}
+
+@media screen and (min-width: 400px) {
+    body {
+    font-family: Montserrat, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        width: 100%;
+        
+    }
+    main {
+    display: flex;
+    flex-flow: column wrap;
+
+    }
+
+    .searchbar {
+        display: block;
+        margin: auto;
+    }
+
+    .hidden {
+    display: none;
+    }
+
+    #shiplist td {
+    cursor: pointer;
+    }
+
+    #detailsbox {
+    flex: 1 0 15em;
+    padding: 1em;
+    text-align: center;
+    border: 2px solid;
+    }
+
+    #detailsbox dl {
+    border: 2px solid;
+    text-align: left;
+    }
+
+    #cardList {
+    /* display: flex; */
+    flex-flow: row wrap;
+    list-style-type: none;
+    }
+
+    #cardList thead {
+    background-color: beige;
+    }
+
+    #cardList tr {
+    border: 1px solid;
+    padding: 0.5em;
+    height: 44px;
+    }
+    #cardList tr:nth-child(even) {
+    background-color: rosybrown;
+    }
+    #cardList tr:hover {
+    background-color: bisque;
+    text-decoration: underline;
+    }
+}
