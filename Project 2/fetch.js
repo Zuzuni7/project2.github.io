@@ -34,6 +34,7 @@ function getCards(url) {
     return getJSON(url);
 }
 
+
 function renderCardList(cards,cardListElement,count) {
     const list = cardListElement;
     list.innerHTML = '';
